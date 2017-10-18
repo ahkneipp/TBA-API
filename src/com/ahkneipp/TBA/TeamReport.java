@@ -13,9 +13,9 @@ public class TeamReport extends Report
 	 * @param teamId
 	 * 		The API team ID of the team.  Requires format of "frc" + <em>team number</em>
 	 */
-	public TeamReport(String teamId)
+	public TeamReport(String teamId, String authKey)
 	{
-		super("team/" + teamId);
+		super("team/" + teamId, authKey);
 	}
 	/**
 	 * Constructs a new Team Report with data from team <em>teamNumber</em>
@@ -23,16 +23,17 @@ public class TeamReport extends Report
 	 * 		The team's official FIRST Robotics Competition number.
 	 * 		I.E. Kilroy Robotics'  Team number is 339
 	 */
-	public TeamReport(int teamNumber)
+	//TODO find better mechanism for Auth keys
+	public TeamReport(int teamNumber, String auth)
 	{
-		this("frc" + Integer.toString(teamNumber));
+		this("frc" + Integer.toString(teamNumber),auth);
 	}
 	/**
 	 * Constructs a new TeamReport with data from The Blue Alliance for default team 339
 	 */
 	public TeamReport()
 	{
-		this("frc339");
+		this("frc339","");
 	}
 	/**
 	 * Returns any arbitrary field the TBA data contains, or null if the field doesn't exist

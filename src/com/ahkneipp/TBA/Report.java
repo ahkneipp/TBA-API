@@ -20,10 +20,10 @@ public class Report
 	public static final String AGENT = "AHK";
 	public Report()
 	{
-		this("");
+		this("", "");
 	}
 	
-	public Report(String requestArg)
+	public Report(String requestArg, String authKey)
 	{
 		try
 		{
@@ -32,6 +32,7 @@ public class Report
 			this.conn.setRequestMethod("GET");
 			this.conn.addRequestProperty("User-Agent", APP_NAME + "/" + VERSION);
 			this.conn.addRequestProperty("X-TBA-App-Id", AGENT + ":" + APP_NAME + ":" + VERSION);
+			this.conn.addRequestProperty("X-TBA-Auth-Key", authKey);
 			this.conn.setInstanceFollowRedirects(true);
 			this.conn.setIfModifiedSince(0);
 			this.dataGetter = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -96,7 +97,7 @@ public class Report
 	}
 	
 	//endpoint for all API communications
-	protected final String BASE_REQUEST = "https://www.thebluealliance.com/api/v2/";
+	protected final String BASE_REQUEST = "https://www.thebluealliance.com/api/v3/";
 	//The real url for our requests.
 	private URL realURL = null;
 	//Array to hold all the returned data keys (first dimension) and values (second dimension)
