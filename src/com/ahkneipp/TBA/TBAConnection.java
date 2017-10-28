@@ -23,37 +23,18 @@ public class TBAConnection
 		this.authKey = authKey;
 	}
 	
-	private HttpsURLConnection openTBAConnection(String requestArg)
+	private HttpsURLConnection openTBAConnection(String requestArg) throws MalformedURLException, ProtocolException, IOException
 	{
 		HttpsURLConnection conn = null;
-		try
-		{
-			URL requestURL = new URL(BASE_REQUEST.concat(requestArg));
-			conn = (HttpsURLConnection) requestURL.openConnection();
-			conn.setRequestMethod("GET");
-			conn.addRequestProperty("User-Agent", APP_NAME + "/" + VERSION);
-			conn.addRequestProperty("X-TBA-App-Id", AGENT + ":" + APP_NAME + ":" + VERSION);
-			conn.addRequestProperty("X-TBA-Auth-Key", this.authKey);
-			conn.setInstanceFollowRedirects(true);
-			conn.setIfModifiedSince(0);
-			conn.connect();
-		}
-		catch(MalformedURLException e)
-		{
-			System.out.println("BAD URL: EXITING");
-			System.exit(1);
-		}
-		catch(ProtocolException e)
-		{
-			System.out.println("Failed to connect: Quitting (Temporary measure)");
-			System.exit(1);
-		}
-		catch(IOException e)
-		{
-			System.out.println("An unknown error occured");
-			e.printStackTrace();
-			System.exit(1);
-		}
+		URL requestURL = new URL(BASE_REQUEST.concat(requestArg));
+		conn = (HttpsURLConnection) requestURL.openConnection();
+		conn.setRequestMethod("GET");
+		conn.addRequestProperty("User-Agent", APP_NAME + "/" + VERSION);
+		conn.addRequestProperty("X-TBA-App-Id", AGENT + ":" + APP_NAME + ":" + VERSION);
+		conn.addRequestProperty("X-TBA-Auth-Key", this.authKey);
+		conn.setInstanceFollowRedirects(true);
+		conn.setIfModifiedSince(0);
+		conn.connect();
 		return conn;
 	}
 	
