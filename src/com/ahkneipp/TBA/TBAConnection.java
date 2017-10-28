@@ -1,14 +1,13 @@
 package com.ahkneipp.TBA;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import com.ahkneipp.util.WebsiteReader;
 
 public class TBAConnection
 {
@@ -58,25 +57,13 @@ public class TBAConnection
 		return conn;
 	}
 	
-	public TeamReport getTeamData(int teamNumber)
+	public TeamReport getTeamData(int teamNumber) throws IOException
 	{
 		HttpsURLConnection conn = openTBAConnection("team/frc"+teamNumber);
-		StringBuilder serverReturn = new StringBuilder();
-			try(Reader reader = new InputStreamReader(conn.getInputStream(), "UTF-8"))
-			{
-				 char[] buffer = new char[4096];
-				 int len;
-				 while ((len = reader.read(buffer)) > 0) 
-				 {
-				     serverReturn.append(buffer, 0, len);
-				 }
-			}
-			catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		return new TeamReport(serverReturn.toString());
+		WebsiteReader tempReader = new WebsiteReader(conn.getInputStream());
+		TeamReport retVal = new TeamReport(tempReader.readWebsite());
+		tempReader.close();
+		return retVal;
 	}
 	
 }
