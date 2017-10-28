@@ -14,14 +14,14 @@ public class Report
 		this.parseJSON(JSON);
 	}
 	
-	public Report()
-	{
-		
-	}
-	
 	public String getFieldValue(String fieldName)
 	{
-		return null;
+		return this.data.get(fieldName).toString();
+	}
+	
+	public Iterable<String> getFields()
+	{
+		return this.data.keySet();
 	}
 	
 	public void parseJSON(String JSON)

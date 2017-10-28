@@ -9,8 +9,9 @@ public class Main
 		java.io.BufferedReader authreader = new java.io.BufferedReader(new java.io.FileReader(new java.io.File(args[0])));
 		String auth = authreader.readLine();
 		TBAConnection conn = new TBAConnection(auth);
-		conn.getTeamData(339);
+		System.out.println(conn.getTeamData(339).getFieldValue("nickname"));
 		conn.getTeamData(836);
+		
 		authreader.close();
 	}	
 }
