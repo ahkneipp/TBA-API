@@ -6,11 +6,11 @@ public class Main
 {
 	public static void main(String[] args) throws Exception
 	{
-		String auth = new java.io.BufferedReader(new java.io.FileReader(new java.io.File(args[0]))).readLine();
-		TeamReport rep = new TeamReport(836, auth);
-		System.out.println(rep.getTeamNumber());
-		System.out.println(rep.getTeamLocation());
-		System.out.println(rep.getField("motto"));	
-		System.out.println(rep.getData());
+		java.io.BufferedReader authreader = new java.io.BufferedReader(new java.io.FileReader(new java.io.File(args[0])));
+		String auth = authreader.readLine();
+		TBAConnection conn = new TBAConnection(auth);
+		conn.getTeamData(339);
+		conn.getTeamData(836);
+		authreader.close();
 	}	
 }
