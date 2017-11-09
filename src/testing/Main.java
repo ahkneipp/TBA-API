@@ -10,6 +10,7 @@ public class Main
 		String auth = authreader.readLine();
 		TBAConnection conn = new TBAConnection(auth);
 		System.out.println(conn.getTeamData(339).getFieldValue("nickname"));
+		System.out.println(conn.getTeamData(339).getFields());
 		conn.getTeamData(836);
 		
 		authreader.close();
